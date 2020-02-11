@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>payload</key>
-	<string>{&quot;aps&quot;:{&quot;alert&quot;:&quot;Testing.. (0)&quot;,&quot;badge&quot;:1,&quot;sound&quot;:&quot;default&quot;}}</string>
+	<string>{&quot;aps&quot;:{&quot;alert&quot;:&quot;Testing.. (0)&quot;,&quot;badge&quot;:1,&quot;sound&quot;:&quot;default&quot;}, &quot;timestamp&quot; : 1581460370 }</string>
 	<key>identifiers</key>
 	<dict>
 		<key>com.example.app</key>

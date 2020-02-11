@@ -96,6 +96,7 @@
 - (IBAction)push:(NSButton *)sender
 {
     [self addTokenAndUpdateCombo];
+    [self updateTimestamp];
     [self push];
     [self upPayloadTextIndex];
 }
@@ -284,6 +285,26 @@
         NSString *after = [payload substringFromIndex:range.location + range.length];
         _payloadField.string = [NSString stringWithFormat:@"%@%lu%@", before, value, after];
     }
+}
+
+- (void)updateTimestamp {
+
+    NSString *payload = _payloadField.string;
+    NSRange range = [payload rangeOfString:@"timestamp.*[0-9]" options:NSRegularExpressionSearch];
+    if (range.location != NSNotFound) {
+
+        NSTimeInterval epochTime = [NSDate date].timeIntervalSince1970;
+        NSString *newEpochString = [NSString stringWithFormat:@"%d", (int)epochTime];
+
+        NSString *timestamp = [payload substringWithRange:range];
+        NSRange epochRange = [timestamp rangeOfString:@"[0-9]+" options:NSRegularExpressionSearch];
+        timestamp = [timestamp stringByReplacingCharactersInRange:epochRange withString:newEpochString];
+        
+        payload = [payload stringByReplacingCharactersInRange:range withString:timestamp];
+        
+        _payloadField.string = payload;
+    }
+
 }
 
 - (NWEnvironment)selectedEnvironmentForCertificate:(NWCertificateRef)certificate
